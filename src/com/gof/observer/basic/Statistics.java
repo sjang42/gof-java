@@ -4,7 +4,7 @@ import com.gof.observer.domain.Observer;
 import com.gof.observer.domain.Subject;
 
 public class Statistics implements Observer {
-    EstimateTransaction estimateTransaction;
+    private EstimateTransaction estimateTransaction;
     private int totalPrice;
     private int numTransaction;
 
