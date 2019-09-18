@@ -1,4 +1,4 @@
-package com.gof.observer.basic;
+package com.gof.observer.domain;
 
 public enum Gender {
     MAN, WOMAN

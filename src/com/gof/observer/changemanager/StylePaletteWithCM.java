@@ -1,38 +1,34 @@
-package com.gof.observer.basic;
+package com.gof.observer.changemanager;
 
 import com.gof.observer.domain.Gender;
 import com.gof.observer.domain.Language;
 import com.gof.observer.domain.Observer;
 import com.gof.observer.domain.Subject;
 
-import java.util.ArrayList;
-
-public class StylePalette implements Subject {
-    private ArrayList<Observer> observers;
+public class StylePaletteWithCM implements Subject {
+    private ChangeManager changeManager;
     private Language language;
     private Gender gender;
 
-    public StylePalette(Language language, Gender gender) {
-        observers = new ArrayList<>();
-        this.language = language;
-        this.gender = gender;
+    public StylePaletteWithCM(ChangeManager changeManager) {
+        this.changeManager = changeManager;
+        this.language = Language.KOR;
+        this.gender = Gender.MAN;
     }
 
     @Override
     public void attach(Observer o) {
-        this.observers.add(o);
+        changeManager.register(this, o);
     }
 
     @Override
     public void detach(Observer o) {
-        this.observers.remove(o);
+        changeManager.unregister(this, o);
     }
 
     @Override
     public void notifyObservers() {
-        for (Observer o : observers) {
-            o.update(this);
-        }
+        changeManager.notifyObservers(this);
     }
 
     /**

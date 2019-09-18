@@ -1,38 +1,16 @@
-package com.gof.observer.basic;
-
+package com.gof.observer.java;
 import com.gof.observer.domain.Gender;
 import com.gof.observer.domain.Language;
-import com.gof.observer.domain.Observer;
-import com.gof.observer.domain.Subject;
 
-import java.util.ArrayList;
+import java.util.Observable;
 
-public class StylePalette implements Subject {
-    private ArrayList<Observer> observers;
+public class StylePalette extends Observable {
     private Language language;
     private Gender gender;
 
     public StylePalette(Language language, Gender gender) {
-        observers = new ArrayList<>();
         this.language = language;
         this.gender = gender;
-    }
-
-    @Override
-    public void attach(Observer o) {
-        this.observers.add(o);
-    }
-
-    @Override
-    public void detach(Observer o) {
-        this.observers.remove(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer o : observers) {
-            o.update(this);
-        }
     }
 
     /**
@@ -40,6 +18,7 @@ public class StylePalette implements Subject {
      */
     public void setLanguage(Language language) {
         this.language = language;
+        setChanged();
         notifyObservers();
     }
 
@@ -48,6 +27,7 @@ public class StylePalette implements Subject {
      */
     public void setGender(Gender gender) {
         this.gender = gender;
+        setChanged();
         notifyObservers();
     }
 

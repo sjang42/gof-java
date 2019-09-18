@@ -1,4 +1,4 @@
-package com.gof.observer.basic;
+package com.gof.observer.changemanager;
 
 import com.gof.observer.domain.Gender;
 import com.gof.observer.domain.Language;
@@ -6,29 +6,30 @@ import com.gof.observer.domain.Observer;
 import com.gof.observer.domain.Subject;
 
 public class Reporter implements Observer {
-    private StylePalette stylePalette;
-    private EstimateTransaction estimateTransaction;
+    private StylePaletteWithCM stylePalette;
+    private EstimateTransactionWithCM estimateTransactionWithCM;
     private Gender gender;
     private Language language;
 
-    public Reporter(StylePalette stylePalette, EstimateTransaction estimateTransaction) {
+    public Reporter(StylePaletteWithCM stylePalette, EstimateTransactionWithCM estimateTransactionWithCM) {
         this.language = Language.KOR;
         this.gender = Gender.MAN;
 
         this.stylePalette = stylePalette;
         this.stylePalette.attach(this);
 
-        this.estimateTransaction = estimateTransaction;
-        this.estimateTransaction.attach(this);
+        this.estimateTransactionWithCM = estimateTransactionWithCM;
+        this.estimateTransactionWithCM.attach(this);
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     public void update(Subject subject) {
         if (subject == stylePalette) {
             this.gender = stylePalette.getGender();
             this.language = stylePalette.getLanguage();
-        } else if (subject == estimateTransaction) {
-            System.out.println(getNewsTitle(estimateTransaction.getLatitude(), estimateTransaction.getLongitude(), estimateTransaction.getPrice()) +
+        } else if (subject == estimateTransactionWithCM) {
+            System.out.println(getNewsTitle(estimateTransactionWithCM.getLatitude(), estimateTransactionWithCM.getLongitude(), estimateTransactionWithCM.getPrice()) +
                     " by " + getReporterName());
         } else {
             System.out.println("Unknown source");
@@ -43,6 +44,7 @@ public class Reporter implements Observer {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private String getReporterName() {
         if (language == Language.ENG && gender == Gender.MAN) {
             return "Mike";

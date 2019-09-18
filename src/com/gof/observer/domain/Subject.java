@@ -1,7 +1,7 @@
 package com.gof.observer.domain;
 
 public interface Subject {
-    public void attach(Observer o);
-    public void detach(Observer o);
-    public void notifyObservers();
+    void attach(Observer o);
+    void detach(Observer o);
+    void notifyObservers();
 }
